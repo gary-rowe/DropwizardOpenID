@@ -1,0 +1,1 @@
+<div>Left sidebar</div>

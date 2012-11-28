@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>uk.co.froot.demo</groupId>
+  <artifactId>dropwizard-openid</artifactId>
+  <version>develop-SNAPSHOT</version>
+
+  <url>http://localhost:8080</url>
+
+  <name>OpenId Service</name>
+  <description>A demo using Dropwizard and OpenId4Java</description>
+  <inceptionYear>2012</inceptionYear>
+
+  <!-- Set the version levels for linked dependencies -->
+  <properties>
+    <dropwizard.version>0.5.1</dropwizard.version>
+  </properties>
+
+  <build>
+
+    <!-- Shade plugin is required to make a "slim" JAR -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <createDependencyReducedPom>true</createDependencyReducedPom>
+          <filters>
+            <filter>
+              <artifact>*:*</artifact>
+              <excludes>
+                <exclude>META-INF/*.SF</exclude>
+                <exclude>META-INF/*.DSA</exclude>
+                <exclude>META-INF/*.RSA</exclude>
+              </excludes>
+            </filter>
+          </filters>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>uk.co.froot.demo.openid.OpenIDDemoService</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+
+    <!-- Dropwizard framework -->
+    <!-- Core functionality -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-core</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+    <!-- Authentication support -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-auth</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+    <!-- Resource testing support -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-testing</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+    <!-- HTML Freemarker views support -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-views</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+    <!-- REST client support for upstream data -->
+    <dependency>
+      <groupId>com.yammer.dropwizard</groupId>
+      <artifactId>dropwizard-client</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+
+    <!-- OpenID heavy lifting -->
+    <dependency>
+      <groupId>org.openid4java</groupId>
+      <artifactId>openid4java-consumer</artifactId>
+      <version>0.9.6</version>
+      <type>pom</type>
+    </dependency>
+
+  </dependencies>
+
+</project>

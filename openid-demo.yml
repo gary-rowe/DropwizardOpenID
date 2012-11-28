@@ -1,0 +1,41 @@
+# Define the HTTP settings
+http:
+  port: 8080
+  adminPort: 8081
+
+# Define the client settings for connecting to upstream data services
+httpClient:
+  timeout: 60s # Timeout while connecting, reading, or writing (Heroku needs large value for spin-up)
+  timeToLive: 10m # Keep connections open
+  cookiesEnabled: true # Track cookies
+  gzipEnabled: true # Allow for gzipped request and response entities
+  minThreads: 1
+  maxThreads: 128 # Thread pool for JerseyClient's async requests
+
+logging:
+
+  level: WARN
+
+  # Logger-specific levels.
+  loggers:
+
+    # Set specific levels
+    "com.sun.jersey.api.client": DEBUG
+    "com.yammer": INFO
+    "uk.co.froot": DEBUG
+
+  # ...
+  # Settings for logging to stdout.
+  console:
+
+    # If true, write log statements to stdout.
+    enabled: true
+
+    # Do not display log statements below this threshold to stdout.
+    threshold: ALL
+
+# TODO Put only the database connectivity in here
+# Load up all default values directly into the database
+
+# TODO Support a configuration version field
+#
