@@ -48,5 +48,5 @@ Here is an example of the authorization annotation as used in `PrivateInfoResour
 ## Where does the ASCII art come from?
 
 The ASCII art for the startup banner was created using the online tool available at
-[Webestools][http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-text2ascii-maker-free-text-to-ascii-converter.html]
+[Webestools](http://www.webestools.com/ascii-text-generator-ascii-art-code-online-txt2ascii-text2ascii-maker-free-text-to-ascii-converter.html)
 with a font of Tiza
