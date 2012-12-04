@@ -16,10 +16,11 @@ All commands will work on *nix without modification, use \ instead of / for Wind
 ## Getting started
 
 From the console you can do the following
-
-    cd <project root>
-    mvn clean install
-    java -jar target/openid-demo-develop-SNAPSHOT.jar server openId-demo.yml
+```shell
+cd <project root>
+mvn clean install
+java -jar target/openid-demo-develop-SNAPSHOT.jar server openId-demo.yml
+```
 
 ## Proxy settings
 
@@ -29,21 +30,23 @@ If you are behind a firewall you will need to set the proxy. This is configured 
 
 Here is an example of the authorization annotation as used in ```PrivateInfoResource```. 
 
-    /**
-     * @return The private home view if authenticated
-     */
-    @GET
-    @Path("/home")
-    @Timed
-    @CacheControl(noCache = true)
-    public PublicFreemarkerView viewHome(
-    @RestrictedTo(Authority.ROLE_PUBLIC)
-    User publicUser) {
+```java
+/**
+ * @return The private home view if authenticated
+ */
+@GET
+@Path("/home")
+@Timed
+@CacheControl(noCache = true)
+public PublicFreemarkerView viewHome(
+@RestrictedTo(Authority.ROLE_PUBLIC)
+User publicUser) {
 
-    BaseModel model = newBaseModel();
-    return new PublicFreemarkerView<BaseModel>("private/home.ftl", model);
+  BaseModel model = newBaseModel();
+  return new PublicFreemarkerView<BaseModel>("private/home.ftl", model);
 
-    }
+}
+```
 
 ## Where does the ASCII art come from?
 
