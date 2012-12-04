@@ -9,14 +9,14 @@ This project demonstrates the following
  
 ## Notation
 
-<project root> - The root directory of the project as checked out through git
+```<project root>``` - The root directory of the project as checked out through git
 
 All commands will work on *nix without modification, use \ instead of / for Windows.
 
 ## Getting started
 
 From the console you can do the following
-```shell
+```
 cd <project root>
 mvn clean install
 java -jar target/openid-demo-develop-SNAPSHOT.jar server openId-demo.yml
