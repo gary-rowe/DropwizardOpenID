@@ -23,11 +23,11 @@ From the console you can do the following
 
 ## Proxy settings
 
-If you are behind a firewall you will need to set the proxy. This is configured in `PublicOpenIDResource.
+If you are behind a firewall you will need to set the proxy. This is configured in ```PublicOpenIDResource.
 
 ## Authorization
 
-Here is an example of the authorization annotation as used in `PrivateInfoResource. 
+Here is an example of the authorization annotation as used in ```PrivateInfoResource. 
 
     /**
      * @return The private home view if authenticated
