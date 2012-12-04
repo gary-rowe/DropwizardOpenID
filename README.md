@@ -4,7 +4,9 @@ This project demonstrates the following
 
 * Dropwizard - Serves HTML
 * OpenId - Provides integration with OpenId providers (Google, Facebook etc)
-
+* Authorization - Security annotation supporting different levels of access
+* Session cookies - Not very stateless, but this is only a demo - you'd use a database in real life
+ 
 ## Notation
 
 <project root> - The root directory of the project as checked out through git
@@ -21,7 +23,27 @@ From the console you can do the following
 
 ## Proxy settings
 
-If you are behind a firewall you will need to set the proxy. This is configured in PublicOpenIDResource.
+If you are behind a firewall you will need to set the proxy. This is configured in `PublicOpenIDResource.
+
+## Authorization
+
+Here is an example of the authorization annotation as used in `PrivateInfoResource. 
+
+    /**
+     * @return The private home view if authenticated
+     */
+    @GET
+    @Path("/home")
+    @Timed
+    @CacheControl(noCache = true)
+    public PublicFreemarkerView viewHome(
+    @RestrictedTo(Authority.ROLE_PUBLIC)
+    User publicUser) {
+
+    BaseModel model = newBaseModel();
+    return new PublicFreemarkerView<BaseModel>("private/home.ftl", model);
+
+    }
 
 ## Where does the ASCII art come from?
 
