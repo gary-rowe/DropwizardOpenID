@@ -1,6 +1,7 @@
 package uk.co.froot.demo.openid.resources;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.yammer.dropwizard.views.View;
 import org.openid4java.OpenIDException;
@@ -17,6 +18,8 @@ import org.openid4java.message.ParameterList;
 import org.openid4java.message.ax.AxMessage;
 import org.openid4java.message.ax.FetchRequest;
 import org.openid4java.message.ax.FetchResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.co.froot.demo.openid.auth.InMemoryUserCache;
 import uk.co.froot.demo.openid.model.Authority;
 import uk.co.froot.demo.openid.model.BaseModel;
@@ -28,6 +31,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>Resource to provide the following to application:</p>
@@ -40,6 +44,8 @@ import java.util.List;
 @Path("/openid")
 @Produces(MediaType.TEXT_HTML)
 public class PublicOpenIDResource extends BaseResource {
+
+  private static final Logger log = LoggerFactory.getLogger(PublicOpenIDResource.class);
 
   private static final String OPENID_DISCOVERY_KEY = "openid-discovery-key";
   private final static String YAHOO_ENDPOINT = "https://me.yahoo.com";
@@ -78,9 +84,11 @@ public class PublicOpenIDResource extends BaseResource {
    */
   @POST
   public Response authenticationRequest(
-    @QueryParam("identifier")
+    @FormParam("identifier")
     String identifier
   ) {
+
+    Preconditions.checkNotNull(identifier, "No OpenID identifier submitted");
 
     try {
 
@@ -188,7 +196,6 @@ public class PublicOpenIDResource extends BaseResource {
         // Put the result into the user cache
         User user = new User();
         user.setOpenIDIdentifier(verified.get().getIdentifier());
-        user.setAuthorities(Sets.newHashSet(Authority.ROLE_PUBLIC));
 
         // Extract additional information
         if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
@@ -196,6 +203,20 @@ public class PublicOpenIDResource extends BaseResource {
           user.setFirstName(extractFirstName(authSuccess));
           user.setLastName(extractLastName(authSuccess));
         }
+        log.info("Extracted a {}",user);
+
+        // Bind the authorities to the user
+        Set<Authority> authorities = Sets.newHashSet();
+
+        // Promote to admin if they have a specific email address
+        // (not a good way, but this is only a demo)
+        if ("nobody@example.org".equals(user.getEmailAddress())) {
+          authorities.add(Authority.ROLE_ADMIN);
+          log.info("Granted admin rights");
+        }
+
+        authorities.add(Authority.ROLE_PUBLIC);
+        user.setAuthorities(authorities);
 
         // Use a central store for Users (keeps the session light)
         InMemoryUserCache.INSTANCE.put(request.getSession(false).getId(), user);

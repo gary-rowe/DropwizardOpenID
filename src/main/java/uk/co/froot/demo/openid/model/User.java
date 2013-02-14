@@ -1,5 +1,6 @@
 package uk.co.froot.demo.openid.model;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Sets;
 
 import java.util.Set;
@@ -81,4 +82,15 @@ public class User {
     return hasAllAuthorities(Sets.newHashSet(authority));
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+      .add("userName",userName)
+      .add("password","**********")
+      .add("emailAddress",emailAddress)
+      .add("openIDIdentifier",openIDIdentifier)
+      .add("firstName",firstName)
+      .add("lastName",lastName)
+      .toString();
+  }
 }
