@@ -1,8 +1,8 @@
 package uk.co.froot.demo.openid;
 
-import com.google.common.cache.CacheBuilderSpec;
 import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.bundles.AssetsBundle;
+import com.yammer.dropwizard.assets.AssetsBundle;
+import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 import com.yammer.dropwizard.views.ViewBundle;
 import com.yammer.dropwizard.views.ViewMessageBodyWriter;
@@ -35,17 +35,20 @@ public class OpenIDDemoService extends Service<OpenIDDemoConfiguration> {
   }
 
   private OpenIDDemoService() {
-    super("store");
-    CacheBuilderSpec cacheBuilderSpec = (System.getenv("FILE_CACHE_ENABLED") == null) ? CacheBuilderSpec.parse("maximumSize=0") : AssetsBundle.DEFAULT_CACHE_SPEC;
-    addBundle(new AssetsBundle("/assets/images", cacheBuilderSpec, "/images"));
-    addBundle(new AssetsBundle("/assets/jquery", cacheBuilderSpec, "/jquery"));
 
   }
 
   @Override
-  protected void initialize(OpenIDDemoConfiguration configuration,
-                            Environment environment) {
+  public void initialize(Bootstrap<OpenIDDemoConfiguration> openIDDemoConfigurationBootstrap) {
 
+    // Bundles
+    openIDDemoConfigurationBootstrap.addBundle(new AssetsBundle("/assets/images", "/images"));
+    openIDDemoConfigurationBootstrap.addBundle(new AssetsBundle("/assets/jquery", "/jquery"));
+    openIDDemoConfigurationBootstrap.addBundle(new ViewBundle());
+  }
+
+  @Override
+  public void run(OpenIDDemoConfiguration openIDDemoConfiguration, Environment environment) throws Exception {
     // Configure authenticator
     OpenIDAuthenticator authenticator = new OpenIDAuthenticator();
 
@@ -60,11 +63,5 @@ public class OpenIDDemoService extends Service<OpenIDDemoConfiguration> {
     environment.addProvider(new OpenIDRestrictedToProvider<User>(authenticator, "OpenID"));
 
     // Session handler
-    environment.setSessionHandler(new SessionHandler());
-
-    // Bundles
-    addBundle(new ViewBundle());
-
-  }
-
+    environment.setSessionHandler(new SessionHandler());  }
 }

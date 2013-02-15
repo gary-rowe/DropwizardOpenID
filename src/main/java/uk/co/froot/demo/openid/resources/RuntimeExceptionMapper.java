@@ -1,7 +1,8 @@
 package uk.co.froot.demo.openid.resources;
 
 import com.sun.jersey.api.core.HttpContext;
-import com.yammer.dropwizard.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -21,7 +22,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException> {
 
-  private static final Log LOG = Log.forClass(RuntimeExceptionMapper.class);
+  private static final Logger log = LoggerFactory.getLogger(RuntimeExceptionMapper.class);
 
   @Context
   HttpContext httpContext;
@@ -42,7 +43,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
     }
 
     // Use the default
-    LOG.error(runtime, runtime.getMessage());
+    log.error(runtime.getMessage(),runtime);
     return defaultResponse;
 
   }
@@ -69,7 +70,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
     // Warn logging
 
     // Error logging
-    LOG.error(exception, exception.getMessage());
+    log.error(exception.getMessage(),exception);
 
     return defaultResponse;
   }

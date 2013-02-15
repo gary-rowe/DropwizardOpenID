@@ -7,7 +7,6 @@ import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
 import com.sun.jersey.spi.inject.InjectableProvider;
 import com.yammer.dropwizard.auth.Authenticator;
-import com.yammer.dropwizard.logging.Log;
 import uk.co.froot.demo.openid.auth.annotation.RestrictedTo;
 
 /**
@@ -21,7 +20,6 @@ import uk.co.froot.demo.openid.auth.annotation.RestrictedTo;
  * @since 0.0.1
  */
 public class OpenIDRestrictedToProvider<T> implements InjectableProvider<RestrictedTo, Parameter> {
-  static final Log LOG = Log.forClass(OpenIDRestrictedToProvider.class);
 
   private final Authenticator<OpenIDCredentials, T> authenticator;
   private final String realm;
