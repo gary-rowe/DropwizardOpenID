@@ -48,6 +48,19 @@ User publicUser) {
 }
 ```
 
+## Adding yourself as an "admin"
+
+The code supports different levels of authority (PUBLIC and ADMIN). To add yourself as an admin, 
+simply edit the following code in `PublicOpenIDResource` to be the email address you use in your 
+selected OpenID provider:
+
+    // Promote to admin if they have a specific email address
+    // (not a good way, but this is only a demo)
+    if ("nobody@example.org".equals(user.getEmailAddress())) {
+      authorities.add(Authority.ROLE_ADMIN);
+      log.info("Granted admin rights");
+    }
+        
 ## Where does the ASCII art come from?
 
 The ASCII art for the startup banner was created using the online tool available at
