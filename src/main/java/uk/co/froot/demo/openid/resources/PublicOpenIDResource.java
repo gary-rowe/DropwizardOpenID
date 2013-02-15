@@ -26,6 +26,7 @@ import uk.co.froot.demo.openid.model.BaseModel;
 import uk.co.froot.demo.openid.model.User;
 import uk.co.froot.demo.openid.views.PublicFreemarkerView;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -103,8 +104,9 @@ public class PublicOpenIDResource extends BaseResource {
       // and retrieve one service endpoint for authentication
       DiscoveryInformation discovered = manager.associate(discoveries);
 
-      // Store the discovery information in the user's session
-      request.getSession(true).setAttribute(OPENID_DISCOVERY_KEY, discovered);
+      // Store the discovery information in the user's session (creating a new one if required)
+      HttpSession session = request.getSession();
+      session.setAttribute(OPENID_DISCOVERY_KEY, discovered);
 
       // Build the AuthRequest message to be sent to the OpenID provider
       AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
@@ -218,8 +220,11 @@ public class PublicOpenIDResource extends BaseResource {
         authorities.add(Authority.ROLE_PUBLIC);
         user.setAuthorities(authorities);
 
+        // This user may be returning through a verified cookie on a new session
+        HttpSession session = request.getSession();
+
         // Use a central store for Users (keeps the session light)
-        InMemoryUserCache.INSTANCE.put(request.getSession(false).getId(), user);
+        InMemoryUserCache.INSTANCE.put(session.getId(), user);
 
         return new PublicFreemarkerView<BaseModel>("common/home.ftl", model);
       }
