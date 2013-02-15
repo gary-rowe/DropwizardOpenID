@@ -95,7 +95,10 @@ public class PublicOpenIDResource extends BaseResource {
 
       // The OpenId server will use this endpoint to provide authentication
       // Parts of this may be shown to the user
-      String returnToUrl = "http://localhost:8080/openid/verify";
+      String returnToUrl = String.format(
+        "http://%s:%d/openid/verify",
+        request.getServerName(),
+        request.getServerPort());
 
       // Perform discovery on the user-supplied identifier
       List discoveries = manager.discover(identifier);
