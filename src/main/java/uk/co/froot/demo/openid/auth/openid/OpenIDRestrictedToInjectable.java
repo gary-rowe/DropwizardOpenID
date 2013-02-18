@@ -9,7 +9,7 @@ import com.yammer.dropwizard.auth.AuthenticationException;
 import com.yammer.dropwizard.auth.Authenticator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.co.froot.demo.openid.model.Authority;
+import uk.co.froot.demo.openid.model.security.Authority;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Cookie;

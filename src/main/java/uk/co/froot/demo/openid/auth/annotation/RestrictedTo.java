@@ -1,13 +1,13 @@
 package uk.co.froot.demo.openid.auth.annotation;
 
-import uk.co.froot.demo.openid.model.Authority;
+import uk.co.froot.demo.openid.model.security.Authority;
 
 import java.lang.annotation.*;
 
 /**
  * <p>Annotation to provide the following to application:</p>
  * <ul>
- * <li>Concise type-safe reference to {@link uk.co.froot.demo.openid.model.Authority}</li>
+ * <li>Concise type-safe reference to {@link uk.co.froot.demo.openid.model.security.Authority}</li>
  * <li>Binds to parameter to assist injection of User</li>
  * </ul>
  * <p>Example:</p>

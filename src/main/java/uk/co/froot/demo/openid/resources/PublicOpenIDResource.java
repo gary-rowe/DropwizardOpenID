@@ -21,9 +21,9 @@ import org.openid4java.message.ax.FetchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.froot.demo.openid.auth.InMemoryUserCache;
-import uk.co.froot.demo.openid.model.Authority;
+import uk.co.froot.demo.openid.model.security.Authority;
 import uk.co.froot.demo.openid.model.BaseModel;
-import uk.co.froot.demo.openid.model.User;
+import uk.co.froot.demo.openid.model.security.User;
 import uk.co.froot.demo.openid.views.PublicFreemarkerView;
 
 import javax.servlet.http.HttpSession;

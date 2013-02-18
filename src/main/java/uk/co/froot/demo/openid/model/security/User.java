@@ -1,4 +1,4 @@
-package uk.co.froot.demo.openid.model;
+package uk.co.froot.demo.openid.model.security;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Sets;

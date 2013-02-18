@@ -9,7 +9,7 @@ import com.yammer.dropwizard.views.ViewMessageBodyWriter;
 import org.eclipse.jetty.server.session.SessionHandler;
 import uk.co.froot.demo.openid.auth.openid.OpenIDAuthenticator;
 import uk.co.froot.demo.openid.auth.openid.OpenIDRestrictedToProvider;
-import uk.co.froot.demo.openid.model.User;
+import uk.co.froot.demo.openid.model.security.User;
 import uk.co.froot.demo.openid.resources.PublicHomeResource;
 
 /**

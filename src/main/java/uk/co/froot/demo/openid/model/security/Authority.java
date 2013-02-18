@@ -1,4 +1,4 @@
-package uk.co.froot.demo.openid.model;
+package uk.co.froot.demo.openid.model.security;
 
 /**
  * <p>Enumeration to provide the following to application:</p>

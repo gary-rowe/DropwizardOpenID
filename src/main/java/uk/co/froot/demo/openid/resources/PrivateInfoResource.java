@@ -3,9 +3,9 @@ package uk.co.froot.demo.openid.resources;
 import com.yammer.dropwizard.jersey.caching.CacheControl;
 import com.yammer.metrics.annotation.Timed;
 import uk.co.froot.demo.openid.auth.annotation.RestrictedTo;
-import uk.co.froot.demo.openid.model.Authority;
+import uk.co.froot.demo.openid.model.security.Authority;
 import uk.co.froot.demo.openid.model.BaseModel;
-import uk.co.froot.demo.openid.model.User;
+import uk.co.froot.demo.openid.model.security.User;
 import uk.co.froot.demo.openid.views.PublicFreemarkerView;
 
 import javax.ws.rs.GET;

@@ -1,7 +1,7 @@
 package uk.co.froot.demo.openid.auth.openid;
 
 import com.google.common.base.Objects;
-import uk.co.froot.demo.openid.model.Authority;
+import uk.co.froot.demo.openid.model.security.Authority;
 
 import java.util.Set;
 

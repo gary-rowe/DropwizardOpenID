@@ -4,7 +4,7 @@ import com.google.common.base.Optional;
 import com.yammer.dropwizard.auth.AuthenticationException;
 import com.yammer.dropwizard.auth.Authenticator;
 import uk.co.froot.demo.openid.auth.InMemoryUserCache;
-import uk.co.froot.demo.openid.model.User;
+import uk.co.froot.demo.openid.model.security.User;
 
 /**
  * <p>Authenticator to provide the following to application:</p>
