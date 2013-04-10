@@ -19,7 +19,7 @@ From the console you can do the following
 ```
 cd <project root>
 mvn clean install
-java -jar target/openid-demo-develop-SNAPSHOT.jar server openId-demo.yml
+java -jar target/dropwizard-openid-1.0.0.jar server openid-demo.yml
 ```
 
 ## Proxy settings
