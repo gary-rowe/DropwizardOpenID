@@ -5,7 +5,7 @@
 
   <groupId>uk.co.froot.demo</groupId>
   <artifactId>dropwizard-openid</artifactId>
-  <version>develop-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <url>http://localhost:8080</url>
 
