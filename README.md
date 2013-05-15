@@ -3,18 +3,34 @@
 This project demonstrates the following
 
 * Dropwizard - Serves HTML
-* OpenId - Provides integration with OpenId providers (Google, Facebook etc)
+* OpenId - Provides integration with OpenId providers (Google, Facebook etc) see [this blog post](http://gary-rowe.com/agilestack/2012/12/12/dropwizard-with-openid/)
 * Authorization - Security annotation supporting different levels of access
 * Session token cookie - Demonstrates stateless operation
                          (but uses an in-memory cache so not horizontally scalable)
+* Markdown - see [this blog post](http://gary-rowe.com/agilestack/2012/11/05/how-to-include-markdown-with-freemarker-in-dropwizard/)
+
+## Bug fixes
+
+### 1.1.0
+
+* Fixed major bug with `DiscoveryInformation` getting lost between requests.
+* Added some Markdown demo code.
+* Designed for Dropwizard 0.6.2.
+
+### 1.0.0
+
+* Initial release.
+* Designed for Dropwizard 0.6.1.
 
 ## Getting started
 
-From the console you can do the following
+From an IDE, just run the `OpenIDDemoService.main()` with a runtime configuration that passes application parameters
+of `server openid-demo.yml`.
+
+From the console, just build with Maven and run it up:
 ```
-cd <project root>
 mvn clean install
-java -jar target/dropwizard-openid-1.0.0.jar server openid-demo.yml
+java -jar target/dropwizard-openid-1.1.0.jar server openid-demo.yml
 ```
 
 ## Proxy settings
