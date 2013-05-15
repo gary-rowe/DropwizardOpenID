@@ -5,7 +5,7 @@
 
   <groupId>uk.co.froot.demo</groupId>
   <artifactId>dropwizard-openid</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 
   <url>http://localhost:8080</url>
 
@@ -15,7 +15,7 @@
 
   <!-- Set the version levels for linked dependencies -->
   <properties>
-    <dropwizard.version>0.6.1</dropwizard.version>
+    <dropwizard.version>0.6.2</dropwizard.version>
   </properties>
 
   <build>

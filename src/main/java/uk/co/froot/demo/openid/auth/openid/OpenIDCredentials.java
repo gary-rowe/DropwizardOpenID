@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import uk.co.froot.demo.openid.model.security.Authority;
 
 import java.util.Set;
+import java.util.UUID;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -17,25 +18,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class OpenIDCredentials {
 
-  private final String sessionId;
+  private final UUID sessionToken;
   private final Set<Authority> requiredAuthorities;
 
   /**
-   * @param sessionId           The session ID acting as a surrogate for the OpenID token
+   * @param sessionToken        The session token acting as a surrogate for the OpenID token
    * @param requiredAuthorities The authorities required to authenticate (provided by the {@link uk.co.froot.demo.openid.auth.annotation.RestrictedTo} annotation)
    */
   public OpenIDCredentials(
-    String sessionId,
+    UUID sessionToken,
     Set<Authority> requiredAuthorities) {
-    this.sessionId = checkNotNull(sessionId);
+    this.sessionToken = checkNotNull(sessionToken);
     this.requiredAuthorities = checkNotNull(requiredAuthorities);
   }
 
   /**
    * @return The OpenID token
    */
-  public String getSessionId() {
-    return sessionId;
+  public UUID getSessionToken() {
+    return sessionToken;
   }
 
   /**
@@ -55,18 +56,18 @@ public class OpenIDCredentials {
     }
     final OpenIDCredentials that = (OpenIDCredentials) obj;
 
-    return sessionId.equals(that.sessionId);
+    return sessionToken.equals(that.sessionToken);
   }
 
   @Override
   public int hashCode() {
-    return (31 * sessionId.hashCode());
+    return (31 * sessionToken.hashCode());
   }
 
   @Override
   public String toString() {
     return Objects.toStringHelper(this)
-      .add("sessionId", sessionId)
+      .add("sessionId", sessionToken)
       .add("authorities", requiredAuthorities)
       .toString();
   }

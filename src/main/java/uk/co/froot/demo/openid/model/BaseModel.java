@@ -1,5 +1,7 @@
 package uk.co.froot.demo.openid.model;
 
+import uk.co.froot.demo.openid.model.security.User;
+
 /**
  * <p>Base class to provide the following to views:</p>
  * <ul>
@@ -10,6 +12,13 @@ package uk.co.froot.demo.openid.model;
  */
 public class BaseModel {
 
-  // TODO Add user, adverts etc
+  private User user;
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
 }

@@ -19,6 +19,11 @@ import javax.validation.constraints.NotNull;
  */
 public class OpenIDDemoConfiguration extends Configuration {
 
+  /**
+   * The cookie name for the session token
+   */
+  public static final String SESSION_TOKEN_NAME ="OpenIDDemo-Session";
+
   @NotEmpty
   @JsonProperty
   private String assetCachePolicy="maximumSize=10000, expireAfterAccess=5s";

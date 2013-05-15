@@ -1,4 +1,4 @@
-package uk.co.froot.demo.openid.auth;
+package uk.co.froot.demo.openid.core;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -6,6 +6,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import uk.co.froot.demo.openid.model.security.User;
 
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,7 +26,7 @@ public enum InMemoryUserCache {
   INSTANCE;
 
   // A lot of threads will hit this cache
-  private volatile Cache<String, User> userCache;
+  private volatile Cache<UUID, User> userCache;
 
   InMemoryUserCache() {
     reset(15, TimeUnit.MINUTES);
@@ -56,18 +58,18 @@ public enum InMemoryUserCache {
   }
 
   /**
+   * @param sessionToken The session token to locate the user (not JSESSIONID)
    *
-   * @param sessionId The session token to locate the user
-   * @return The matching ClientUser or absent
+   * @return The matching User or absent
    */
-  public Optional<User> getBySessionId(String sessionId) {
+  public Optional<User> getBySessionToken(UUID sessionToken) {
 
     // Check the cache
-    Optional<User> userOptional = Optional.fromNullable(userCache.getIfPresent(sessionId));
+    Optional<User> userOptional = Optional.fromNullable(userCache.getIfPresent(sessionToken));
 
     if (userOptional.isPresent()) {
       // Ensure we refresh the cache on a check to maintain the session timeout
-      userCache.put(sessionId, userOptional.get());
+      userCache.put(sessionToken, userOptional.get());
     }
 
     return userOptional;
@@ -75,12 +77,50 @@ public enum InMemoryUserCache {
   }
 
   /**
-   * @param sessionId The OpenID token to use to locate the user
-   * @param user        The client user to cache
+   * @param sessionToken The session token to use to locate the user
+   * @param user      The User to cache
    */
-  public void put(String sessionId, User user) {
+  public void put(UUID sessionToken, User user) {
+
     Preconditions.checkNotNull(user);
-    userCache.put(sessionId, user);
+
+    userCache.put(sessionToken, user);
   }
 
+  public void hardDelete(User user) {
+
+    Preconditions.checkNotNull(user);
+    Preconditions.checkNotNull(user.getSessionToken());
+
+    userCache.invalidate(user.getSessionToken());
+  }
+
+  public Optional<User> getByOpenIDIdentifier(String openIDIdentifier) {
+
+    Map<UUID, User> map = userCache.asMap();
+
+    for (Map.Entry<UUID, User> entry : map.entrySet()) {
+
+      if (entry.getValue().getOpenIDIdentifier().equals(openIDIdentifier)) {
+        return Optional.of(entry.getValue());
+      }
+
+    }
+
+    return Optional.absent();
+  }
+
+  public Optional<User> getByEmailAddress(String emailAddress) {
+    Map<UUID, User> map = userCache.asMap();
+
+    for (Map.Entry<UUID, User> entry : map.entrySet()) {
+
+      if (entry.getValue().getEmailAddress().equals(emailAddress)) {
+        return Optional.of(entry.getValue());
+      }
+
+    }
+
+    return Optional.absent();
+  }
 }

@@ -3,7 +3,7 @@ package uk.co.froot.demo.openid.auth.openid;
 import com.google.common.base.Optional;
 import com.yammer.dropwizard.auth.AuthenticationException;
 import com.yammer.dropwizard.auth.Authenticator;
-import uk.co.froot.demo.openid.auth.InMemoryUserCache;
+import uk.co.froot.demo.openid.core.InMemoryUserCache;
 import uk.co.froot.demo.openid.model.security.User;
 
 /**
@@ -22,7 +22,7 @@ public class OpenIDAuthenticator implements Authenticator<OpenIDCredentials, Use
     // Get the User referred to by the API key
     Optional<User> user = InMemoryUserCache
       .INSTANCE
-      .getBySessionId(credentials.getSessionId());
+      .getBySessionToken(credentials.getSessionToken());
     if (!user.isPresent()) {
       return Optional.absent();
     }

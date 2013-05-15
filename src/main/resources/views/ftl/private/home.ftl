@@ -9,7 +9,7 @@
 <div>
 <#include "../includes/common/header.ftl">
 
-  <h1>Private data</h1>
+  <h1>Your private data</h1>
   <p>Congratulations! You authenticated through OpenId</p>
   <p>This can be seen by administrators and authenticated public</p>
   <p>Try to get to the <a href="/private/admin">admin page</a></p>

@@ -9,7 +9,7 @@
 <div>
 <#include "../includes/common/header.ftl">
 
-  <h1>Very private data</h1>
+  <h1>Admin data</h1>
   <p>This can only be seen by administrators</p>
 
 <#include "../includes/common/footer.ftl">

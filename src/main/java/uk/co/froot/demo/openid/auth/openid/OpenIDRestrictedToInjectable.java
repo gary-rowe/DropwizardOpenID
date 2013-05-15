@@ -9,6 +9,7 @@ import com.yammer.dropwizard.auth.AuthenticationException;
 import com.yammer.dropwizard.auth.Authenticator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.co.froot.demo.openid.OpenIDDemoConfiguration;
 import uk.co.froot.demo.openid.model.security.Authority;
 
 import javax.ws.rs.WebApplicationException;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * <p>Injectable to provide the following to {@link OpenIDRestrictedToProvider}:</p>
@@ -68,15 +70,15 @@ class OpenIDRestrictedToInjectable<T> extends AbstractHttpContextInjectable<T> {
 
       // Get the Authorization header
       final Map<String,Cookie> cookieMap = httpContext.getRequest().getCookies();
-      if (!cookieMap.containsKey("JSESSIONID")) {
+      if (!cookieMap.containsKey(OpenIDDemoConfiguration.SESSION_TOKEN_NAME)) {
         throw new WebApplicationException(Response.Status.UNAUTHORIZED);
       }
 
-      String sessionId = cookieMap.get("JSESSIONID").getValue();
+      UUID sessionToken = UUID.fromString(cookieMap.get(OpenIDDemoConfiguration.SESSION_TOKEN_NAME).getValue());
 
-      if (sessionId != null) {
+      if (sessionToken != null) {
 
-        final OpenIDCredentials credentials = new OpenIDCredentials(sessionId, requiredAuthorities);
+        final OpenIDCredentials credentials = new OpenIDCredentials(sessionToken, requiredAuthorities);
 
         final Optional<T> result = authenticator.authenticate(credentials);
         if (result.isPresent()) {

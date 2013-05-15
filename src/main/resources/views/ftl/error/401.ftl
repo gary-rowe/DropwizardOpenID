@@ -11,7 +11,9 @@
 
   <h1>Access denied!</h1>
 
-  <p>You need to <a href="/openid">sign in</a> to access this information</p>
+  <p>You may need to <a href="/openid/login">log in to access this information</a></p>
+
+  <p>You can return to <a href="/private/home">your private home page</a></p>
 
 <#include "../includes/common/footer.ftl">
 

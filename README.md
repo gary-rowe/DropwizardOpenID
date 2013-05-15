@@ -5,13 +5,8 @@ This project demonstrates the following
 * Dropwizard - Serves HTML
 * OpenId - Provides integration with OpenId providers (Google, Facebook etc)
 * Authorization - Security annotation supporting different levels of access
-* Session cookies - Not very stateless, but this is only a demo - you'd use a database in real life
- 
-## Notation
-
-```<project root>``` - The root directory of the project as checked out through git
-
-All commands will work on *nix without modification, use \ instead of / for Windows.
+* Session token cookie - Demonstrates stateless operation
+                         (but uses an in-memory cache so not horizontally scalable)
 
 ## Getting started
 
