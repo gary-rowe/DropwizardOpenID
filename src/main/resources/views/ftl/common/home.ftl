@@ -11,8 +11,8 @@
 
   <h1>Public home page</h1>
 
-  <p><a href="/private/home">Access protected info</a>. This is available to anyone after authentication</p>
-  <p><a href="/private/admin">Access private info</a>. This is only available to people who authenticate with the specific email address set in <code>PublicOpenIDResource</code>.</p>
+  <!-- Demonstrate Markdown (see BaseModel) -->
+  ${model.html}
 
   <#include "../includes/common/footer.ftl">
 
