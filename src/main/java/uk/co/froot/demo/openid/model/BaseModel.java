@@ -1,9 +1,12 @@
 package uk.co.froot.demo.openid.model;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
 import org.pegdown.PegDownProcessor;
 import uk.co.froot.demo.openid.model.security.User;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * <p>Base class to provide the following to views:</p>
@@ -27,18 +30,14 @@ public class BaseModel {
 
   /**
    * @return Some Markdown rendered as HTML - this is an inefficient way of performing this operation
-   *         See the <code>/common/home.ftl</code> to see where it is displayed
+   *         See the <code>/common/markdown.ftl</code> to see where it is displayed
    *
    * @throws IOException If something goes wrong
    */
-  public String getHtml() throws IOException {
+  public String getMarkdownHtml() throws IOException {
 
-    // Hard coded but could come from anywhere
-    String markdown = "### Example Links (built from Markdown)\n" +
-      "\n" +
-      "[Access protected info](/private/home): available to anyone after authentication.\n" +
-      "\n" +
-      "[Access private info](/private/admin): only available to people who authenticate with the specific email address set in `PublicOpenIDResource`.\n";
+    URL url = BaseModel.class.getResource("/views/markdown/demo-all-elements.md");
+    String markdown = Resources.toString(url, Charsets.UTF_8).trim();
 
     // New processor each time due to pegdown not being thread-safe internally
     PegDownProcessor processor = new PegDownProcessor();
@@ -47,4 +46,6 @@ public class BaseModel {
     return processor.markdownToHtml(markdown);
 
   }
+
+
 }

@@ -42,6 +42,21 @@ public class PublicHomeResource extends BaseResource {
   /**
    * Provide the initial view on to the system
    *
+   * @return A localised view containing HTML
+   */
+  @GET
+  @Path("/markdown")
+  @Timed
+  @CacheControl(noCache = true)
+  public PublicFreemarkerView viewMarkdown() {
+
+    BaseModel model = newBaseModel();
+    return new PublicFreemarkerView<BaseModel>("common/markdown.ftl",model);
+  }
+
+  /**
+   * Provide the initial view on to the system
+   *
    * @return A the favicon images from the assets
    */
   @GET
